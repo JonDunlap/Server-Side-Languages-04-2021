@@ -7,7 +7,7 @@ const readline = require('readline'),
 class Grader {
   getLetterGrade = (numberGrade) => {
     // Variable to use for the letter grade
-    let letterGrade;
+    let letterGrade = 'Your letter grade for this assignment is: ';
     // Variable for the warning since it is used several times
     const warning = 'Please enter a valid number between 0 and 100.';
 
@@ -20,11 +20,11 @@ class Grader {
       const parsedGrade = parseInt(numberGrade);
 
       if (parsedGrade < 0) letterGrade = warning;
-      else if (parsedGrade < 60) letterGrade = 'F';
-      else if (parsedGrade < 70) letterGrade = 'D';
-      else if (parsedGrade < 80) letterGrade = 'C';
-      else if (parsedGrade < 90) letterGrade = 'B';
-      else if (parsedGrade <= 100) letterGrade = 'A';
+      else if (parsedGrade < 60) letterGrade += 'F';
+      else if (parsedGrade < 70) letterGrade += 'D';
+      else if (parsedGrade < 80) letterGrade += 'C';
+      else if (parsedGrade < 90) letterGrade += 'B';
+      else if (parsedGrade <= 100) letterGrade += 'A';
       // If they give a valid number but it falls outside of 0-100 give a warning
       else letterGrade = warning;
     }
