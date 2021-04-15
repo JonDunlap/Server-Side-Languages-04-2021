@@ -7,7 +7,7 @@ class Grader
 		# Check if the input grade can be parsed into an integer, if not give a warning, if so parse it
 		# and give the letter grade corresponding to the number.
 		if !Float(numberGrade)
-				letterGrade = warning
+			letterGrade = warning
 		else
 				# Parse the number grade into an integer
 				parsedGrade = numberGrade.to_f
@@ -27,7 +27,7 @@ class Grader
 				else
 						letterGrade = warning
 				end
-		end
+		end rescue letterGrade = warning
 		return letterGrade
 	end
 end
