@@ -1,7 +1,12 @@
 class Grader
+	def initialize(studentName, assignmentName)
+		@studentName = studentName
+		@assignmentName = assignmentName
+	end
+
 	def getLetterGrade(numberGrade)
 		# Variable to use for the letter grade
-		letterGrade = 'Your letter grade for this assignment is: '
+		letterGrade = "#{@studentName}'s letter grade for #{@assignmentName} is: "
 		# Variable for the warning since it is used several times
 		warning = 'Please enter a valid number between 0 and 100.'
 		# Check if the input grade can be parsed into an integer, if not give a warning, if so parse it
@@ -32,8 +37,14 @@ class Grader
 	end
 end
 
-puts "What is the number grade for your assignment? "
-numberGrade = gets
+puts "What is the student's name? "
+studentName = gets.chomp
 
-grader = Grader.new
+puts "What is the assignment name? "
+assignmentName = gets.chomp
+
+puts "What is the number grade for your assignment? "
+numberGrade = gets.chomp
+
+grader = Grader.new(studentName, assignmentName)
 puts grader.getLetterGrade(numberGrade)
