@@ -2,9 +2,13 @@ import sys
 
 
 class Grader:
+    def __init__(self, studentName, assignmentName):
+        self.studentName = studentName
+        self.assignmentName = assignmentName
+
     def getLetterGrade(self, numberGrade):
         # Variable to use for the letter grade
-        letterGrade = 'Your letter grade for this assignment is: '
+        letterGrade = f"{studentName}'s letter grade for {assignmentName} is: "
         # Variable for the warning since it is used several times
         warning = 'Please enter a valid number between 0 and 100.'
 
@@ -33,6 +37,8 @@ class Grader:
         return letterGrade
 
 
+studentName = input("What is the student's name? ")
+assignmentName = input("What is the assignment name? ")
 numberGrade = input("What is the number grade for your assignment? ")
-grader = Grader()
+grader = Grader(studentName, assignmentName)
 print(grader.getLetterGrade(numberGrade))
