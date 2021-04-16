@@ -14,7 +14,7 @@ class Grader:
 
         # Check if the input grade can be parsed into an integer, if not give a warning, if so parse it
         # and give the letter grade corresponding to the number.
-        if not float(numberGrade):
+        if not(try_float(numberGrade)):
             letterGrade = warning
         else:
             # Parse the number grade into an integer
@@ -35,6 +35,14 @@ class Grader:
             else:
                 letterGrade = warning
         return letterGrade
+
+# Add a try-float method to catch if user enters a string that cannot be parsed to a float
+def try_float(numberGrade):
+		try:
+					float(numberGrade)
+					return True
+		except ValueError:
+					return False
 
 
 studentName = input("What is the student's name? ")
