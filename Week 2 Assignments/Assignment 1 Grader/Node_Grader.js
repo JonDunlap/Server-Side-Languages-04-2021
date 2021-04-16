@@ -5,9 +5,13 @@ const readline = require('readline'),
   });
 
 class Grader {
+  constructor(studentName, assignmentName) {
+    this.studentName = studentName;
+    this.assignmentName = assignmentName;
+  }
   getLetterGrade = (numberGrade) => {
     // Variable to use for the letter grade
-    let letterGrade = 'Your letter grade for this assignment is: ';
+    let letterGrade = `${this.studentName}'s letter grade for ${this.assignmentName} is: `;
     // Variable for the warning since it is used several times
     const warning = 'Please enter a valid number between 0 and 100.';
 
@@ -33,10 +37,14 @@ class Grader {
   };
 }
 
-interface.question(
-  'What is the number grade for your assignment? ',
-  (numberGrade) => {
-    const grader = new Grader();
-    console.log(grader.getLetterGrade(numberGrade));
-  }
-);
+interface.question("What is the student's name? ", (studentName) => {
+  interface.question('What is the assignment name? ', (assignmentName) => {
+    interface.question(
+      'What is the number grade for your assignment? ',
+      (numberGrade) => {
+        const grader = new Grader(studentName, assignmentName);
+        console.log(grader.getLetterGrade(numberGrade));
+      }
+    );
+  });
+});
