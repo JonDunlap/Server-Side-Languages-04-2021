@@ -53,3 +53,7 @@ http
   .listen(port, () => {
     console.log(`Server running at http://${hostName}:${port}`);
   });
+
+// Credits:
+// Bootstrap theme from: https://startbootstrap.com/template/shop-homepage
+// Sanitize path example from: https://adrianmejia.com/building-a-node-js-static-file-server-files-over-http-using-es6/
