@@ -91,10 +91,6 @@ router.post('/register', (req, res) => {
   if (errors.length === 0) success = 'Registration successfully completed!';
 
   res.render('index', { pagename: 'Home', errors: errors, success: success });
-  //! Debug
-  console.log(`req`, req.body);
-  console.log(`errors`, errors);
-  console.log(`success`, success);
 });
 
 app.use(express.static('public'));
