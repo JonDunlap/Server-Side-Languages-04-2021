@@ -1,7 +1,7 @@
 'use strict';
 
 const express = require('express'),
-  request = require('request'),
+  // request = require('request'),
   bodyParser = require('body-parser');
 // ejs = require('ejs');
 
