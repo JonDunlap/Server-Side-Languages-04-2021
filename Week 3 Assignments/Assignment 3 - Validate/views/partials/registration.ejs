@@ -1,0 +1,129 @@
+<!-- Registration Form -->
+<div class="container py-4 px-4 bg-secondary text-white">
+  <h2 class="py-2">Registration Form</h2>
+  <form action="/register" method="post">
+    <div class="form-row">
+      <!-- First name input -->
+      <div class="form-group col-md-6">
+        <label for="firstName">First Name</label>
+        <input
+          type="text"
+          class="form-control"
+          id="firstName"
+          placeholder="Enter your first name"
+          name="firstName"
+        />
+      </div>
+      <!-- Last name input -->
+      <div class="form-group col-md-6">
+        <label for="lastName">Last Name</label>
+        <input
+          type="text"
+          class="form-control"
+          id="lastName"
+          placeholder="Password"
+          name="lastName"
+        />
+      </div>
+    </div>
+    <div class="form-row">
+      <!-- Address input -->
+      <div class="form-group col-sm-12">
+        <label for="inputAddress">Address</label>
+        <input
+          type="text"
+          class="form-control"
+          id="inputAddress"
+          placeholder="1234 Main St"
+          name="address"
+        />
+      </div>
+    </div>
+    <div class="form-row">
+      <!-- City input -->
+      <div class="form-group col-md-6">
+        <label for="inputCity">City</label>
+        <input type="text" class="form-control" id="inputCity" name="city" />
+      </div>
+      <!-- State input -->
+      <div class="form-group col-md-4">
+        <label for="inputState">State</label>
+        <input type="text" class="form-control" id="inputState" name="state" />
+      </div>
+      <!-- Zip input -->
+      <div class="form-group col-md-2">
+        <label for="inputZip">Zip</label>
+        <input type="text" class="form-control" id="inputZip" name="zip" />
+      </div>
+    </div>
+    <div class="form-row">
+      <!-- Age select -->
+      <div class="form-group col-md-4">
+        <label for="inputAge">Age</label>
+        <select id="inputAge" class="form-control" name="age">
+          <option selected>Choose...</option>
+          <option value="18">18</option>
+          <option value="19">19</option>
+          <option value="20">20</option>
+          <option value="21">21</option>
+          <option value="22">22</option>
+          <option value="23">23</option>
+          <option value="24">24</option>
+          <option value="25">25</option>
+          <option value="26">26</option>
+          <option value="27">27</option>
+          <option value="28">28</option>
+          <option value="29">29</option>
+          <option value="30">30</option>
+        </select>
+      </div>
+      <!-- Gender radio -->
+      <div class="form-group col-md-4">
+        <div>
+          <label>Gender</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input
+            class="form-check-input"
+            type="radio"
+            id="genderRadioFemale"
+            value="female"
+            name="genderRadio"
+            checked
+          />
+          <label class="form-check-label" for="genderRadioFemale">Female</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input
+            class="form-check-input"
+            type="radio"
+            id="genderRadioMale"
+            value="male"
+            name="genderRadio"
+          />
+          <label class="form-check-label" for="genderRadioMale">Male</label>
+        </div>
+      </div>
+      <!-- Consent checkbox -->
+      <div class="form-group col-md-4">
+        <div>
+          <label for="">Consent</label>
+        </div>
+        <div class="form-check">
+          <input
+            class="form-check-input"
+            type="checkbox"
+            id="gridCheck"
+            name="consent"
+            required
+          />
+          <label class="form-check-label" for="gridCheck"
+            >I agree to the terms and conditions</label
+          >
+        </div>
+      </div>
+    </div>
+
+    <input type="submit" value="Register" class="btn btn-primary" />
+  </form>
+</div>
