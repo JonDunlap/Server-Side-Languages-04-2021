@@ -22,6 +22,9 @@
     <!-- Navigation -->
     <%- include("partials/navigation") %>
 
+    <!-- Login Form -->
+    <%- include("partials/login") %>
+
     <!-- Error checking -->
     <% if (typeof(errors)!="undefined") { %> <% errors.map((error) => {%>
     <br /><span><%= error %></span>
@@ -32,9 +35,6 @@
     include("partials/registration") %> <%} else { %>
     <br /><span><%= success %></span>
     <%} %>
-
-    <!-- Login Form -->
-    <%- include("partials/login") %>
 
     <!-- Page Content -->
     <div class="container">
