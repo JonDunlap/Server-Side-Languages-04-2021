@@ -10,7 +10,11 @@ const hostName = 'localhost',
   port = 8080;
 
 const emailRegex = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/,
-  passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/;
+  passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/,
+  nameRegex = /^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,}$/,
+  addressRegex = /^[a-zA-Z0-9\s,.'-]{3,}$/,
+  cityStateRegex = /^[a-zA-Z0-9\s,]{3,}$/,
+  zipRegex = /^(\d{5}(?:\-\d{4})?)$/;
 
 const app = express(),
   router = express.Router();
@@ -30,13 +34,66 @@ router.get('/about', (req, res) => {
 router.post('/login', (req, res) => {
   const errors = [];
 
-  if (!req.body.email) errors.push('Email is required.');
-  if (!req.body.password) errors.push('Password is required');
-  if (!emailRegex.test(req.body.email)) errors.push('Email is not valid.');
-  if (!passwordRegex.test(req.body.password))
-    errors.push('Password is not valid.');
+  // Deconstruct the req.body object to make code easier to read
+  const { email, password } = req.body;
 
-  res.render('index', { pagename: 'Home', errors: errors }); // views/index.ejs
+  // Check for blank fields and push an error message if blank
+  if (!email) errors.push('Email is required.');
+  if (!password) errors.push('Password is required');
+  // Validate input using regex and push an error message if not valid
+  if (!emailRegex.test(email)) errors.push('Email is not valid.');
+  if (!passwordRegex.test(password)) errors.push('Password is not valid.');
+
+  res.render('index', { pagename: 'Home', errors: errors });
+});
+
+router.post('/register', (req, res) => {
+  let success;
+  const errors = [];
+
+  // Deconstruct the req.body object to make code easier to read
+  const {
+    firstName,
+    lastName,
+    address,
+    city,
+    state,
+    zip,
+    age,
+    consent,
+  } = req.body;
+
+  // Check for blank fields and if not blank validate them, push to the errors array for any blank/invalid fields
+  if (!firstName) errors.push('First name is required.');
+  else if (!nameRegex.test(firstName)) errors.push('First name is not valid.');
+
+  if (!lastName) errors.push('Last name is required.');
+  else if (!nameRegex.test(lastName)) errors.push('Last name is not valid');
+
+  if (!address) errors.push('Address is required.');
+  else if (!addressRegex.test(address)) errors.push('Address is not valid.');
+
+  if (!city) errors.push('City is required.');
+  else if (!cityStateRegex.test(city)) errors.push('City is not valid.');
+
+  if (!state) errors.push('State is required.');
+  else if (!cityStateRegex.test(state)) errors.push('State is not valid.');
+
+  if (!zip) errors.push('Zip code is required.');
+  else if (!zipRegex.test(zip)) errors.push('Zip is not valid.');
+
+  if (!age) errors.push('Age is required.');
+  // if (!req.body.genderRadio) errors.push('Gender is required.') //? Not needed as it is a radio input
+  if (!consent) errors.push('You must agree to the terms and conditions.');
+
+  // If there are no errors set a success message
+  if (errors.length === 0) success = 'Registration successfully completed!';
+
+  res.render('index', { pagename: 'Home', errors: errors, success: success });
+  //! Debug
+  console.log(`req`, req.body);
+  console.log(`errors`, errors);
+  console.log(`success`, success);
 });
 
 app.use(express.static('public'));
