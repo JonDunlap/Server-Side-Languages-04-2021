@@ -1,7 +1,7 @@
 'use strict';
 
 const express = require('express'),
-  // request = require('request'),
+  request = require('request'),
   bodyParser = require('body-parser');
 // ejs = require('ejs');
 
@@ -9,7 +9,7 @@ const express = require('express'),
 const hostName = 'localhost',
   port = 8080;
 
-const emailRegex = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i,
+const emailRegex = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/,
   passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/;
 
 const app = express(),
