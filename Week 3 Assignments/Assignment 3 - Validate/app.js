@@ -38,11 +38,12 @@ router.post('/login', (req, res) => {
   const { email, password } = req.body;
 
   // Check for blank fields and push an error message if blank
+  // else Validate input using regex and push an error message if not valid
   if (!email) errors.push('Email is required.');
+  else if (!emailRegex.test(email)) errors.push('Email is not valid.');
+
   if (!password) errors.push('Password is required');
-  // Validate input using regex and push an error message if not valid
-  if (!emailRegex.test(email)) errors.push('Email is not valid.');
-  if (!passwordRegex.test(password)) errors.push('Password is not valid.');
+  else if (!passwordRegex.test(password)) errors.push('Password is not valid.');
 
   res.render('index', { pagename: 'Home', errors: errors });
 });
