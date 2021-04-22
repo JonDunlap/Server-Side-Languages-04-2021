@@ -25,11 +25,12 @@
     <!-- Login Form -->
     <%- include("partials/login") %>
 
-    <!-- Registration Form Area -->
-    <% if (typeof(success) == "undefined") { %> <%-
+    <!--  -->
+    <% if(typeof(sess)!='undefined' && sess.loggedIn == true){%> <%} else {%> <%
+    if (typeof(success) == "undefined") { %> <%-
     include("partials/registration") %> <%} else { %>
     <br /><span class="bg-success text-light m-2 p-1"><%= success %></span>
-    <%} %>
+    <%} }%>
 
     <!-- Page Content -->
     <div class="container">
