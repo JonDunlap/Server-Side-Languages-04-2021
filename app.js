@@ -10,7 +10,7 @@ const hostName = 'localhost',
   port = 8080;
 
 const emailRegex = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/,
-  passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{6,}$/,
+  passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[a-zA-Z]).{6,}$/,
   nameRegex = /^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,}$/,
   addressRegex = /^[a-zA-Z0-9\s,.'-]{3,}$/,
   cityStateRegex = /^[a-zA-Z0-9\s,]{3,}$/,
@@ -75,16 +75,18 @@ router.post('/login', (req, res) => {
   if (!password) errors.push('Password is required');
   else if (!passwordRegex.test(password)) errors.push('Password is not valid.');
 
-  //! check for username and password to match assignment
-  //! if good show profile page, if not show home page with errors
-  sess = req.session;
+  // check for username and password to match assignment
+  // if good show profile page, if not show home page with errors
+  if (email == 'mike@aol.com' && password == 'abc123') {
+    sess = req.session;
 
-  sess.loggedIn = true;
-  session.email = email;
-  res.render('profile', { pagename: 'Profile', sess: sess });
-
-  // ! move inside of if statement
-  // res.render('index', { pagename: 'Home', errors: errors });
+    sess.loggedIn = true;
+    session.email = email;
+    res.render('profile', { pagename: 'Profile', sess: sess });
+  } else {
+    errors.push('Invalid login credentials');
+    res.render('index', { pagename: 'Home', errors: errors });
+  }
 });
 
 // Route for registering user
