@@ -10,7 +10,7 @@ const hostName = 'localhost',
   port = 8080;
 
 const emailRegex = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/,
-  passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/,
+  passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{6,}$/,
   nameRegex = /^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,}$/,
   addressRegex = /^[a-zA-Z0-9\s,.'-]{3,}$/,
   cityStateRegex = /^[a-zA-Z0-9\s,]{3,}$/,
@@ -26,11 +26,11 @@ app.set('view engine', 'ejs');
 app.engine('ejs', require('ejs').__express);
 
 router.get('/', (req, res) => {
-  res.render('index', { pagename: 'Home' }); // views/index.ejs
+  res.render('index', { pagename: 'Home' });
 });
 
 router.get('/about', (req, res) => {
-  res.render('about', { pagename: 'About' }); // views/about.ejs
+  res.render('about', { pagename: 'About' });
 });
 
 router.post('/login', (req, res) => {
