@@ -25,11 +25,6 @@
     <!-- Login Form -->
     <%- include("partials/login") %>
 
-    <!-- Error checking -->
-    <% if (typeof(errors)!="undefined") { %> <% errors.map((error) => {%>
-    <br /><span class="bg-danger text-light m-2 p-1"><%= error %></span>
-    <%})%> <%} %>
-
     <!-- Registration Form Area -->
     <% if (typeof(success) == "undefined") { %> <%-
     include("partials/registration") %> <%} else { %>
