@@ -1,9 +1,6 @@
 'use strict';
 
 const express = require('express');
-// request = require('request'),
-// bodyParser = require('body-parser');
-// ejs = require('ejs');
 
 // Variable for the hostname and port that the server is listening on
 const hostName = 'localhost',
@@ -19,7 +16,7 @@ const emailRegex = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\")
 const app = express(),
   router = express.Router();
 
-app.use(express.json(), express.urlencoded());
+app.use(express.json(), express.urlencoded({ extended: true }));
 app.set('view engine', 'ejs');
 app.engine('ejs', require('ejs').__express);
 
@@ -90,6 +87,7 @@ router.post('/register', (req, res) => {
   // If there are no errors set a success message
   if (errors.length === 0) success = 'Registration successfully completed!';
 
+  // Render the home page with errors or success message included
   res.render('index', { pagename: 'Home', errors: errors, success: success });
 });
 
