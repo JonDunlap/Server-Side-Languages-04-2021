@@ -1,6 +1,7 @@
 'use strict';
 
 const express = require('express'),
+  session = require('session'),
   app = express(),
   router = express.Router();
 
