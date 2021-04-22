@@ -1,6 +1,8 @@
 'use strict';
 
-const express = require('express');
+const express = require('express'),
+  app = express(),
+  router = express.Router();
 
 // Variable for the hostname and port that the server is listening on
 const hostName = 'localhost',
@@ -13,10 +15,12 @@ const emailRegex = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\")
   cityStateRegex = /^[a-zA-Z0-9\s,]{3,}$/,
   zipRegex = /^(\d{5}(?:\-\d{4})?)$/;
 
-const app = express(),
-  router = express.Router();
-
-app.use(express.json(), express.urlencoded({ extended: true }));
+app.use(
+  express.json(),
+  express.urlencoded({ extended: true }),
+  express.static('public')
+);
+app.use('/', router);
 app.set('view engine', 'ejs');
 app.engine('ejs', require('ejs').__express);
 
@@ -91,8 +95,6 @@ router.post('/register', (req, res) => {
   res.render('index', { pagename: 'Home', errors: errors, success: success });
 });
 
-app.use(express.static('public'));
-app.use('/', router);
 const server = app.listen(port, () => {
   console.log(`Server running at http://${hostName}:${port}`);
 });
