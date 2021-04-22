@@ -1,7 +1,7 @@
 'use strict';
 
 const express = require('express'),
-  session = require('session'),
+  session = require('express-session'),
   app = express(),
   router = express.Router();
 
@@ -22,17 +22,45 @@ app.use(
   express.static('public')
 );
 app.use('/', router);
+app.use(session({ secret: 'secret', saveUninitialized: true, resave: true }));
 app.set('view engine', 'ejs');
 app.engine('ejs', require('ejs').__express);
 
+// Initialize a variable to be used with session.
+let sess;
+
+// Route to home page
 router.get('/', (req, res) => {
-  res.render('index', { pagename: 'Home' });
+  sess = req.session;
+  res.render('index', { pagename: 'Home', sess: sess });
 });
 
+// Route to about page
 router.get('/about', (req, res) => {
-  res.render('about', { pagename: 'About' });
+  sess = req.session;
+  res.render('about', { pagename: 'About', sess: sess });
 });
 
+// Secured route to profile page
+router.get('/profile', (req, res) => {
+  sess = req.session;
+  if (typeof sess == 'undefined' || sess.loggedIn != true) {
+    const errors = ['Not an authenticated user'];
+    res.render('index', { pagename: 'Home', errors: errors });
+  } else {
+    res.render('profile', { pagename: 'Profile', sess: sess });
+  }
+});
+
+// Route for logging out user
+router.get('/logout', (req, res) => {
+  sess = req.session;
+  sess.destroy((err) => {
+    res.redirect('/');
+  });
+});
+
+// Route for logging in user
 router.post('/login', (req, res) => {
   const errors = [];
 
@@ -47,9 +75,16 @@ router.post('/login', (req, res) => {
   if (!password) errors.push('Password is required');
   else if (!passwordRegex.test(password)) errors.push('Password is not valid.');
 
+  //! check for username and password to match assignment
+  //! if good show profile page, if not show home page with errors
+  sess = req.session;
+  sess.loggedIn = true;
+  res.render('profile', { pagename: 'Profile', sess: sess });
+
   res.render('index', { pagename: 'Home', errors: errors });
 });
 
+// Route for registering user
 router.post('/register', (req, res) => {
   let success;
   const errors = [];
