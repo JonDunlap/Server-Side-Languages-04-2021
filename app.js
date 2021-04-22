@@ -1,8 +1,8 @@
 'use strict';
 
-const express = require('express'),
-  // request = require('request'),
-  bodyParser = require('body-parser');
+const express = require('express');
+// request = require('request'),
+// bodyParser = require('body-parser');
 // ejs = require('ejs');
 
 // Variable for the hostname and port that the server is listening on
@@ -19,7 +19,7 @@ const emailRegex = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\")
 const app = express(),
   router = express.Router();
 
-app.use(bodyParser.json(), bodyParser.urlencoded({ extended: true }));
+app.use(express.json(), express.urlencoded());
 app.set('view engine', 'ejs');
 app.engine('ejs', require('ejs').__express);
 
