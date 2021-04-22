@@ -19,10 +19,10 @@ const emailRegex = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\")
 app.use(
   express.json(),
   express.urlencoded({ extended: true }),
-  express.static('public')
+  express.static('public'),
+  session({ secret: 'secret', saveUninitialized: true, resave: true })
 );
 app.use('/', router);
-app.use(session({ secret: 'secret', saveUninitialized: true, resave: true }));
 app.set('view engine', 'ejs');
 app.engine('ejs', require('ejs').__express);
 
@@ -78,10 +78,13 @@ router.post('/login', (req, res) => {
   //! check for username and password to match assignment
   //! if good show profile page, if not show home page with errors
   sess = req.session;
+
   sess.loggedIn = true;
+  session.email = email;
   res.render('profile', { pagename: 'Profile', sess: sess });
 
-  res.render('index', { pagename: 'Home', errors: errors });
+  // ! move inside of if statement
+  // res.render('index', { pagename: 'Home', errors: errors });
 });
 
 // Route for registering user
