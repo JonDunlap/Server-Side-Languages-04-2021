@@ -1,6 +1,7 @@
 'use strict';
 
 const express = require('express'),
+  request = require('request'),
   session = require('express-session'),
   app = express(),
   router = express.Router();
@@ -75,16 +76,34 @@ router.post('/login', (req, res) => {
   if (!password) errors.push('Password is required');
   else if (!passwordRegex.test(password)) errors.push('Password is not valid.');
 
-  // check for username and password to match assignment
-  // if good show profile page, if not show home page with errors
-  if (email == 'mike@aol.com' && password == 'abc123') {
-    sess = req.session;
+  // Ensure there are no errors
+  if (errors.length === 0) {
+    request(
+      `https://ohpo7ez4l2.execute-api.us-east-2.amazonaws.com/prod?email=${email}&password=${password}`,
+      { json: true },
+      (err, response, body) => {
+        if (err) {
+          return console.log(err);
+        }
+        // check for username and password to match assignment
+        // if good show profile page, if not show home page with errors
+        if (body.Count > 0) {
+          sess = req.session;
 
-    sess.loggedIn = true;
-    session.email = email;
-    res.render('profile', { pagename: 'Profile', sess: sess });
+          sess.loggedIn = true;
+          session.email = email;
+          res.render('profile', {
+            pagename: 'Profile',
+            sess: sess,
+            body: body,
+          });
+        } else {
+          errors.push('Invalid login credentials');
+          res.render('index', { pagename: 'Home', errors: errors });
+        }
+      }
+    );
   } else {
-    errors.push('Invalid login credentials');
     res.render('index', { pagename: 'Home', errors: errors });
   }
 });
