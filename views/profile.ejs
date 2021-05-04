@@ -9,7 +9,7 @@
     <meta name="description" content="" />
     <meta name="author" content="" />
 
-    <title>Shop Homepage</title>
+    <title>Profile Page</title>
 
     <!-- Bootstrap core CSS -->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
@@ -22,21 +22,16 @@
     <!-- Navigation -->
     <%- include("partials/navigation") %>
 
-    <!-- Login Form -->
-    <%- include("partials/login") %>
-
-    <!--  -->
-    <% if(typeof(sess)!='undefined' && sess.loggedIn == true){%> <%} else {%> <%
-    if (typeof(success) == "undefined") { %> <%-
-    include("partials/registration") %> <%} else { %>
-    <br /><span class="bg-success text-light m-2 p-1"><%= success %></span>
-    <%} }%>
-
     <!-- Page Content -->
     <div class="container">
       <div class="row">
         <div class="col-lg-3">
-          <h1 class="my-4">Home Page</h1>
+          <h1 class="my-4">Profile Page</h1>
+          <% if (typeof(body) != "undefined") { %> <% const {email, password} =
+          body.Items[0] %>
+          <p>User: <%= email.S %></p>
+          <p>Password: <%= password.S %></p>
+          <% } %>
         </div>
         <!-- /.col-lg-3 -->
 
