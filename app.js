@@ -6,6 +6,7 @@ const express = require('express'),
   app = express(),
   router = express.Router();
 
+
 // Variable for the hostname and port that the server is listening on
 const hostName = 'localhost',
   port = 8080;
@@ -151,10 +152,11 @@ router.post('/register', (req, res) => {
   // If there are no errors set a success message
   if (errors.length === 0) success = 'Registration successfully completed!';
 
-  // Render the home page with errors or success message included
   res.render('index', { pagename: 'Home', errors: errors, success: success });
 });
 
+app.use(express.static('public'));
+app.use('/', router);
 const server = app.listen(port, () => {
   console.log(`Server running at http://${hostName}:${port}`);
 });
